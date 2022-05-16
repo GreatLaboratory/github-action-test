@@ -27,7 +27,7 @@ env:
   APP_REPOSITORY: ${{ github.event.inputs.name }}
   NAMESPACE: biz
   IMAGE: asia-northeast1-docker.pkg.dev/qmit-io/${{ github.event.inputs.name }}/server
-  GIT: $(git rev-parse --short HEAD)
+  GIT: ${GITHUB_SHA::8}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -78,5 +78,5 @@ jobs:
       - name: Send greeting3
         run: echo "$GIT"
       - name: Send greeting4
-        run: echo "GIT
+        run: echo GIT
   
