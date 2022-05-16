@@ -30,11 +30,24 @@ env:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  ns-util:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.name == 'api-gateway' }}
+    steps:
+      - name: Set namespace
+        id: vars
+        run: echo ::set-output name=ns::"util"
+  ns-biz:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.name != 'api-gateway' }}
+    steps:
+      - name: Set namespace
+        id: vars
+        run: echo ::set-output name=ns::"biz"
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -53,3 +66,6 @@ jobs:
         run: echo "${{ github.event.inputs.message }} ${{ github.event.inputs.name }} ${{ steps.extract_branch.outputs.branch }}"
       - name: Send greeting2
         run: echo "$APP_NAME $APP_REPOSITORY $IMAGE"
+      - name: Send greeting3
+        run: echo ${{ steps.vars.outputs.ns }}
+  
