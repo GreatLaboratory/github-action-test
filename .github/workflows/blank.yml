@@ -23,10 +23,10 @@ on:
         required: true
 
 env:
-  APP_NAME: payment-svc
-  APP_REPOSITORY: payment-svc
+  APP_NAME: ${{ github.event.inputs.name }}
+  APP_REPOSITORY: ${{ github.event.inputs.name }}
   NAMESPACE: biz
-  IMAGE: asia-northeast1-docker.pkg.dev/qmit-io/payment-svc/server
+  IMAGE: asia-northeast1-docker.pkg.dev/qmit-io/${{ github.event.inputs.name }}/server
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -51,3 +51,5 @@ jobs:
           echo test, and deploy your project.
       - name: Send greeting
         run: echo "${{ github.event.inputs.message }} ${{ github.event.inputs.name }} ${{ steps.extract_branch.outputs.branch }}"
+      - name: Send greeting2
+        run: echo "$APP_NAME $APP_REPOSITORY $IMAGE"
