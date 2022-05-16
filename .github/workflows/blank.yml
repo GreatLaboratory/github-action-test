@@ -36,14 +36,18 @@ jobs:
     steps:
       - name: Set namespace
         id: vars
-        run: echo ::set-output name=ns::"util"
+        run: echo ::set-output name=qwer::"util"
+      - name: Check outputs
+        run: echo ${{ steps.vars.outputs.qwer }}
   ns-biz:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.name != 'api-gateway' }}
     steps:
       - name: Set namespace
         id: vars
-        run: echo ::set-output name=ns::"biz"
+        run: echo ::set-output name=qwer::"biz"
+      - name: Check outputs
+        run: echo ${{ steps.vars.outputs.qwer }}
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
@@ -67,5 +71,5 @@ jobs:
       - name: Send greeting2
         run: echo "$APP_NAME $APP_REPOSITORY $IMAGE"
       - name: Send greeting3
-        run: echo "${{ steps.vars.outputs.ns }}"
+        run: echo "${{ steps.vars.outputs.qwer }}"
   
