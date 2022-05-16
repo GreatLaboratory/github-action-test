@@ -27,27 +27,32 @@ env:
   APP_REPOSITORY: ${{ github.event.inputs.name }}
   NAMESPACE: biz
   IMAGE: asia-northeast1-docker.pkg.dev/qmit-io/${{ github.event.inputs.name }}/server
+  GIT: $(git rev-parse --short HEAD)
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  ns-util:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.name == 'api-gateway' }}
-    steps:
-      - name: Set namespace
-        id: vars
-        run: echo ::set-output name=qwer::"util"
-      - name: Check outputs
-        run: echo ${{ steps.vars.outputs.qwer }}
-  ns-biz:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.name != 'api-gateway' }}
-    steps:
-      - name: Set namespace
-        id: vars
-        run: echo ::set-output name=qwer::"biz"
-      - name: Check outputs
-        run: echo ${{ steps.vars.outputs.qwer }}
+#   set-up-ns:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Set namespace util
+#         if: ${{ github.event.inputs.name == 'api-gateway' }}
+#         id: vars
+#         run: echo ::set-output name=ns::"util"
+#       - name: Set namespace util
+#         if: ${{ github.event.inputs.name == 'api-gateway' }}
+#         id: vars
+#         run: echo ::set-output name=ns::"util"
+#       - name: Check outputs
+#         run: echo ${{ steps.vars.outputs.ns }}
+#   ns-biz:
+#     runs-on: ubuntu-latest
+#     if: ${{ github.event.inputs.name != 'api-gateway' }}
+#     steps:
+#       - name: Set namespace
+#         id: vars
+#         run: echo ::set-output name=ns::"biz"
+#       - name: Check outputs
+#         run: echo ${{ steps.vars.outputs.ns }}
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
@@ -71,5 +76,7 @@ jobs:
       - name: Send greeting2
         run: echo "$APP_NAME $APP_REPOSITORY $IMAGE"
       - name: Send greeting3
-        run: echo "${{ steps.vars.outputs.qwer }}"
+        run: echo "$GIT"
+      - name: Send greeting4
+        run: echo "GIT
   
