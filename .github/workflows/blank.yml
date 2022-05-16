@@ -76,7 +76,7 @@ jobs:
       - name: Send greeting2
         run: echo "$APP_NAME $APP_REPOSITORY $IMAGE"
       - name: Send greeting3
-        run: echo "$GIT"
+        run: echo ${GITHUB_SHA::8}
       - name: Send greeting4
-        run: echo GIT
+        run: echo "${GITHUB_SHA::8}"
   
