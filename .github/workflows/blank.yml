@@ -67,5 +67,5 @@ jobs:
       - name: Send greeting2
         run: echo "$APP_NAME $APP_REPOSITORY $IMAGE"
       - name: Send greeting3
-        run: echo ${{ steps.vars.outputs.ns }}
+        run: echo "${{ steps.vars.outputs.ns }}"
   
